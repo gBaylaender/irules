@@ -1,13 +1,18 @@
 #That ccode create a 302 redirect
 when HTTP_REQUEST {
+	#Check for matching HOST name
 	if { ( [HTTP::host] eq "www.example.co.uk") or ( [HTTP::host] eq  "example.co.uk" ) } {
+		#Check for matching URI
 		if { ( [HTTP::uri] contains "/my/old/path" ) } {
+			#Redirect to
 			HTTP::redirect "http://www.example.com/my/new-path"
 		}
 		elseif { ( [HTTP::uri] contains "/my/oldest/path" ) } {
-			 HTTP::redirect "https://www.example.com/my/new-path-2"
+			#Redirect to
+			HTTP::redirect "https://www.example.com/my/new-path-2"
 		}
 		else {
+			#Redirect to
 			HTTP::redirect "https://www.example.com"
 		}
 	}
