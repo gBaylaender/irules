@@ -1,0 +1,13 @@
+when HTTP_REQUEST {
+	if { ( [HTTP::host] eq "www.example.co.uk") or ( [HTTP::host] eq  "example.co.uk" ) } {
+		if { ( [HTTP::uri] contains "/my/old/path" ) } {
+			HTTP::respond 301 Location "http://www.example.com/my/new-path"
+		}
+		elseif { ( [HTTP::uri] contains "/my/oldest/path" ) } {
+			 HTTP::respond 301 Location "https://www.example.com/my/new-path-2"
+		}
+		else {
+			HTTP::respond 301 Location "https://www.example.com"
+		}
+	}
+}
